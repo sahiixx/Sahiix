@@ -1,165 +1,149 @@
-export interface SystemPrompt {
+export interface SyncLog {
   id: string
-  name: string
-  tool: string
-  category: "Code Generation" | "IDE" | "Agent" | "Platform" | "Assistant" | "LLM"
-  description: string
-  content: string
-  version?: string
-  lastUpdated: string
-  complexity: "Basic" | "Intermediate" | "Advanced"
-  tags: string[]
-  wordCount: number
-  features: string[]
+  connectionId: string
+  type: "Import" | "Export" | "Sync"
+  status: "Success" | "Failed" | "Partial"
+  recordsProcessed: number
+  recordsFailed: number
+  startTime: string
+  endTime: string
+  errorDetails?: string[]
 }
 
-export interface AITool {
+// Adding template marketplace types
+export interface Template {
   id: string
   name: string
   description: string
-  category: "Code Generation" | "IDE" | "Agent" | "Platform" | "Assistant" | "LLM"
-  website?: string
-  company?: string
-  promptCount: number
-}
-
-export interface SearchFilters {
-  query: string
+  type: "prompt" | "workflow" | "agent" | "integration"
   category: string
-  tool: string
-  complexity: string
   tags: string[]
-}
-
-export interface N8nWorkflow {
-  id: string
-  name: string
-  description: string
-  category: "Data Processing" | "API Integration" | "Notifications" | "Content Management" | "Automation" | "Monitoring"
-  tags: string[]
-  nodes: N8nNode[]
-  connections: N8nConnection[]
-  version: string
-  lastUpdated: string
-  complexity: "Basic" | "Intermediate" | "Advanced"
-  author?: string
-  useCase: string
-  estimatedRunTime?: string
-  triggerType: "Manual" | "Webhook" | "Schedule" | "Event"
-  nodeCount: number
-}
-
-export interface N8nNode {
-  id: string
-  name: string
-  type: string
-  typeVersion: number
-  position: [number, number]
-  parameters: Record<string, any>
-  credentials?: Record<string, string>
-}
-
-export interface N8nConnection {
-  node: string
-  type: string
-  index: number
-}
-
-export interface WorkflowCategory {
-  id: string
-  name: string
-  description: string
-  count: number
-  icon: string
-}
-
-export interface WorkflowSearchFilters {
-  query: string
-  category: string
-  complexity: string
-  triggerType: string
-  tags: string[]
-}
-
-export interface UnifiedSearchFilters extends SearchFilters {
-  type: "prompts" | "workflows" | "all"
-  workflowCategory?: string
-  triggerType?: string
-}
-
-export interface AIAgent {
-  id: string
-  name: string
-  description: string
-  systemPrompt: string
-  model: "grok-beta" | "grok-vision-beta"
-  temperature: number
-  maxTokens: number
-  category: "Assistant" | "Code Helper" | "Data Analyst" | "Creative" | "Research" | "Custom"
-  tags: string[]
-  isActive: boolean
-  createdAt: string
-  lastUsed?: string
-  conversationCount: number
-  avatar?: string
-  capabilities: string[]
-  examples: AgentExample[]
-}
-
-export interface AgentExample {
-  id: string
-  title: string
-  userMessage: string
-  expectedResponse: string
-}
-
-export interface AgentTemplate {
-  id: string
-  name: string
-  description: string
-  category: AIAgent["category"]
-  systemPrompt: string
-  model: AIAgent["model"]
-  temperature: number
-  maxTokens: number
-  tags: string[]
-  capabilities: string[]
-  examples: AgentExample[]
-  isPopular?: boolean
-}
-
-export interface Conversation {
-  id: string
-  agentId: string
-  title: string
-  messages: Message[]
+  author: TemplateAuthor
+  content: TemplateContent
+  metadata: TemplateMetadata
+  stats: TemplateStats
+  pricing: TemplatePricing
+  status: "Published" | "Draft" | "Archived" | "Under Review"
   createdAt: string
   updatedAt: string
-  isArchived: boolean
+  publishedAt?: string
+  isVerified: boolean
+  isFeatured: boolean
 }
 
-export interface Message {
+export interface TemplateAuthor {
   id: string
-  role: "user" | "assistant" | "system"
+  name: string
+  avatar?: string
+  bio?: string
+  verified: boolean
+  reputation: number
+  totalTemplates: number
+  totalDownloads: number
+}
+
+export interface TemplateContent {
+  // For prompt templates
+  systemPrompt?: string
+  userPrompt?: string
+  examples?: PromptExample[]
+
+  // For workflow templates
+  nodes?: any[]
+  connections?: any[]
+  variables?: TemplateVariable[]
+
+  // For agent templates
+  agentConfig?: any // Placeholder for AIAgent
+
+  // For integration templates
+  integrationConfig?: any
+  setupInstructions?: string[]
+}
+
+export interface PromptExample {
+  input: string
+  output: string
+  description: string
+}
+
+export interface TemplateVariable {
+  name: string
+  type: "string" | "number" | "boolean" | "array" | "object"
+  description: string
+  defaultValue?: any
+  required: boolean
+}
+
+export interface TemplateMetadata {
+  version: string
+  compatibility: string[]
+  requirements: string[]
+  difficulty: "Beginner" | "Intermediate" | "Advanced"
+  estimatedTime: string
+  language?: string
+  framework?: string
+}
+
+export interface TemplateStats {
+  downloads: number
+  forks: number
+  likes: number
+  views: number
+  rating: number
+  reviewCount: number
+  successRate?: number
+}
+
+export interface TemplatePricing {
+  type: "Free" | "Premium" | "Pay What You Want"
+  price?: number
+  currency?: string
+  license: "MIT" | "Apache" | "GPL" | "Commercial" | "Custom"
+}
+
+export interface TemplateReview {
+  id: string
+  templateId: string
+  userId: string
+  userName: string
+  userAvatar?: string
+  rating: number
+  title: string
   content: string
-  timestamp: string
-  tokens?: number
-  model?: string
+  pros: string[]
+  cons: string[]
+  createdAt: string
+  updatedAt: string
+  helpful: number
+  verified: boolean
 }
 
-export interface AgentSearchFilters {
-  query: string
-  category: string
-  model: string
+export interface TemplateCollection {
+  id: string
+  name: string
+  description: string
+  author: TemplateAuthor
+  templates: string[]
+  isPublic: boolean
   tags: string[]
-  isActive?: boolean
+  createdAt: string
+  updatedAt: string
+  followers: number
 }
 
-export interface AgentStats {
-  totalAgents: number
-  activeAgents: number
-  totalConversations: number
-  totalMessages: number
-  popularCategories: { category: string; count: number }[]
-  modelUsage: { model: string; count: number }[]
+export interface TemplateSearchFilters {
+  query: string
+  type: string
+  category: string
+  pricing: string
+  difficulty: string
+  rating: number
+  tags: string[]
+  author: string
+  verified: boolean
+  featured: boolean
 }
+
+// Placeholder for AIAgent interface
+export type AIAgent = {}

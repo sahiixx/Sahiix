@@ -2,7 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Code2, Search, GitCompare, Sparkles, Workflow, Zap, Bot, FlaskConical } from "lucide-react"
+import { Code2, Search, GitCompare, Sparkles, Workflow, Zap, Bot, FlaskConical, Store } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 
 export default function HomePage() {
@@ -65,6 +65,12 @@ export default function HomePage() {
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+                <Link href="/marketplace">
+                  <Store className="mr-2 h-5 w-5" />
+                  API Store
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="text-lg px-8 bg-transparent">
                 <Link href="/compare">
                   <GitCompare className="mr-2 h-5 w-5" />
                   Compare Tools
@@ -79,7 +85,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-16">
             <div>
               <h2 className="text-3xl font-semibold text-center mb-8 flex items-center justify-center gap-2">
                 <Code2 className="h-8 w-8 text-primary" />
@@ -154,15 +160,66 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
+
+            <div>
+              <h2 className="text-3xl font-semibold text-center mb-8 flex items-center justify-center gap-2">
+                <Store className="h-8 w-8 text-primary" />
+                API Marketplace
+              </h2>
+              <div className="grid grid-cols-1 gap-4">
+                <Card className="hover:shadow-lg transition-shadow">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="flex items-center gap-2 text-lg">
+                        <Sparkles className="h-4 w-4" />
+                        AI/ML APIs
+                      </CardTitle>
+                      <Badge variant="outline" className="text-xs">
+                        15+ services
+                      </Badge>
+                    </div>
+                    <CardDescription className="text-sm">OpenAI, Anthropic, and other AI model APIs</CardDescription>
+                  </CardHeader>
+                </Card>
+                <Card className="hover:shadow-lg transition-shadow">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="flex items-center gap-2 text-lg">
+                        <Zap className="h-4 w-4" />
+                        Integration APIs
+                      </CardTitle>
+                      <Badge variant="outline" className="text-xs">
+                        25+ services
+                      </Badge>
+                    </div>
+                    <CardDescription className="text-sm">Payment, communication, and productivity APIs</CardDescription>
+                  </CardHeader>
+                </Card>
+                <Card className="hover:shadow-lg transition-shadow">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="flex items-center gap-2 text-lg">
+                        <Store className="h-4 w-4" />
+                        Data APIs
+                      </CardTitle>
+                      <Badge variant="outline" className="text-xs">
+                        20+ services
+                      </Badge>
+                    </div>
+                    <CardDescription className="text-sm">Analytics, storage, and data processing APIs</CardDescription>
+                  </CardHeader>
+                </Card>
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <Card className="text-center">
               <CardHeader>
                 <Search className="h-12 w-12 mx-auto text-primary mb-4" />
                 <CardTitle>Search & Filter</CardTitle>
                 <CardDescription>
-                  Find specific prompts, workflows, and agents by tool, category, or content with powerful search
+                  Find specific prompts, workflows, agents, and APIs by category, tool, or content with powerful search
                   capabilities
                 </CardDescription>
               </CardHeader>
@@ -182,6 +239,15 @@ export default function HomePage() {
                 <CardTitle>Create & Automate</CardTitle>
                 <CardDescription>
                   Build custom AI agents, discover automation patterns, and learn prompt engineering techniques
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="text-center">
+              <CardHeader>
+                <Store className="h-12 w-12 mx-auto text-primary mb-4" />
+                <CardTitle>API Integration</CardTitle>
+                <CardDescription>
+                  Discover and integrate powerful APIs to enhance your workflows and AI agents with external services
                 </CardDescription>
               </CardHeader>
             </Card>
